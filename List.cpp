@@ -2,6 +2,12 @@
 #include <stdio.h>
 using namespace std;
 #define InitSize 10
+// 静态分配
+// typedef struct {
+// 	int data[InitSize];
+// 	int length;
+// }SqList;
+// 动态分配
 typedef struct {
 	int *data;
 	int length;
