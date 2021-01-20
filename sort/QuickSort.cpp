@@ -27,6 +27,7 @@ void QuickSort(int a[], int low, int high) {
   }
 }
 
+//选择排序的一种
 int main() {
   int a[] = {1,3,6,1,2,3,5,8,7,9};
   QuickSort(a,0,9);

@@ -49,7 +49,7 @@ void bubbleSort(int a[],int length) {
   }
 }
 
-// 时间复杂度 最好和平均O(n^2)
+// 选择排序的一种 时间复杂度 最好和平均O(n^2)
 int main() {
   int a[] = {1,3,6,1,2,3,5,8,7,9};
   int length = getArrayLen(a);
