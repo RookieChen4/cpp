@@ -1,4 +1,5 @@
 #include<iostream>
+#include <map>
 using namespace std;
 #define MaxSize 10
 template <class T>
@@ -11,6 +12,9 @@ class myStack {
     bool isEmpty();
     bool pushStack(T e);
     T popStack();
+    T getTop();
+    int getLength();
+    void List();
 };
 
 template <class T>
@@ -36,38 +40,79 @@ T myStack<T>::popStack() {
 }
 
 template <class T>
-void calculate(myStack<T> s,char opt) {
-  s.popStack();
-  s.popStack();
+T myStack<T>::getTop() {
+  if(this->length == 0) throw out_of_range("myStack<>::popStack(): empty stack");
+  int i = this->length - 1;
+  return this->data[i];
+}
+
+template <class T>
+int myStack<T>::getLength() {
+  return this->length;
+}
+
+template <class T>
+void calculateOp(char opt,int a, int b, myStack<T> &s) {
+  if(opt == '+') {
+    s.pushStack(a+b);
+  }
+  if(opt == '-') {
+    cout << a << b << endl;
+    s.pushStack(a-b);
+  }
+  if(opt == '*') {
+    s.pushStack(a * b);
+  }
+  if(opt == '/') {
+    s.pushStack(a / b);
+  }
+}
+
+template <class T>
+void calculate(myStack<T> &s,char opt) {
+  // cout << s.getTop() << s.getTop() << endl;
+  calculateOp(opt,s.popStack(),s.popStack(),s);
+}
+
+bool ispriority(char a,char b,map<char, int> Emap) {
+  return Emap[a] >= Emap[b];
 }
 
 int main() {
+  map<char, int> Emap;
+  Emap['+'] = 0;
+  Emap['-'] = 0;
+  Emap['*'] = 1;
+  Emap['/'] = 1;
   myStack<int> EStack;
   myStack<char> OpStack;
   char opt = '0';
   string expression = "(1+1+(2*2)+1-1)/2";
   for(int i = 0; i < expression.size();i++) {
     if(isdigit(expression[i]) != 0) {
-      EStack.pushStack(expression[i]);
+      EStack.pushStack(expression[i] - '0');
     }else if(expression[i] == '('){
       OpStack.pushStack(expression[i]);
     }else if(expression[i] == ')') {
-      opt = OpStack.popStack(); 
+      opt = OpStack.popStack();
       while(opt != '(') {
-        calculate(Estack,opt);
+        calculate(EStack,opt);
         opt = OpStack.popStack(); 
       }
     }else {
-      while(!isEmpty()&&getTop(stack) != '(') {
-        if(ispriority(getTop(stack),expression[i],Emap)) {
-          popStack(stack,temp);
-          popStack(Estack,a);
-          popStack(Estack,b);
-          calculate(temp,b,a,Estack);
+      while(!OpStack.isEmpty()&&OpStack.getTop() != '(') {
+        if(ispriority(OpStack.getTop(),expression[i],Emap)) {
+          opt = OpStack.popStack(); 
+          calculate(EStack,opt);
         }
       }
-      pushStack(stack,e[i]);
+      OpStack.pushStack(expression[i]);
     }
   }
+  while (!OpStack.isEmpty()) {
+    opt = OpStack.popStack();
+    calculate(EStack,opt);
+  }
+  cout << EStack.getTop();
   return 0;
 }
