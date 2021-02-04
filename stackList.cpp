@@ -78,6 +78,7 @@ bool ispriority(char a,char b,map<char, int> Emap) {
   return Emap[a] >= Emap[b];
 }
 
+// 中序转后序计算
 int main() {
   map<char, int> Emap;
   Emap['+'] = 0;

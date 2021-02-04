@@ -1,1 +1,1 @@
-calculateOp
+ cout << T[0];
