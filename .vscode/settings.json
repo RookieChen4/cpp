@@ -40,6 +40,8 @@
     "xstddef": "cpp",
     "xtr1common": "cpp",
     "xtree": "cpp",
-    "charconv": "cpp"
+    "charconv": "cpp",
+    "queue": "cpp",
+    "stack": "cpp"
   }
 }
